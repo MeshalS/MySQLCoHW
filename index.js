@@ -48,3 +48,80 @@ async function main() {
 
 
 }
+
+
+/// Emp 
+async function employeeMenu() {
+
+    await inquirer.prompt({
+        type: "list",
+        name: "action",
+        message: "Select :",
+        choices: ["Employeeadd", "Employee remove ", "Employee view ", "Employee update"]
+    }).then(response => {
+        switch (response.action) {
+            case "Employeeadd":
+                addEmp()
+                break;
+            case "Employee remove ":
+                removemp()
+                break;
+            case "Employee view ":
+                viewAllEmployees();
+                break;
+            case "Employee update":
+                updateEmployees();
+                break;
+        }
+    })
+
+
+}
+
+// add 
+function addEmp() {
+
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "first_name",
+            message: "enter your first name:-"
+
+        },
+        {
+            type: "input",
+            name: "second_name",
+            message: "enter your second name:-"
+        },
+
+        {
+            type: "input",
+            name: "role_id",
+            message: "enter your role id:-"
+        },
+        {
+            type: "input",
+            name: "manager_id",
+            message: "enter your mannger id:-"
+        },
+
+
+    ])
+
+        .then(answers => {
+
+
+            let query = "INSERT INTO employees(first_name,last_name,role_id,manager_id) VALUES(?,?,?,?)"
+
+            connection.query(query, [answers.first_name, answers.second_name, answers.role_id, answers.manager_id], function (err) {
+                if (err) throw err;
+
+                // Log all results of the SELECT statement
+                console.log("Done");
+                connection.end();
+            });
+
+        })
+
+
+}
