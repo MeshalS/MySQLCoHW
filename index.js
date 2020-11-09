@@ -125,3 +125,63 @@ function addEmp() {
 
 
 }
+
+// view all em Select * ALL 
+
+function viewAllEmployees() {
+    connection.query(
+        `SELECT  * from employees`,
+        function (err, res) {
+            if (err) throw err;
+            console.log("Employees:");
+            console.table(res);
+
+        })
+}
+
+// updateing 
+async function updateEmployees() {
+    const res = await connection.query(`SELECT * FROM employees`);
+
+    // Man to have a new stracutre of the array with new value that being updated 
+    const employees = res.map(elm => ({
+        name: elm.first_name + " " + elm.last_name,
+        value: elm.id
+    }));
+
+    const roles = res.map(elm => ({
+        value: elm.id
+    }));
+
+    console.log(employees);
+
+    const response = await inquirer.prompt([
+    {
+        type: "list",
+        name: "employee",
+        message: "Which employee would you like to update?",
+        choices: employees
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "What role would you like to update them to?",
+        choices: roles
+    }]);
+
+    console.log(response);
+
+    let query = "UPDATE employees SET role_id = ? WHERE id = ?"
+
+    connection.query(query, [response.role,response.employee], function (err,data) {
+        if (err) throw err;
+
+        console.log(data);
+
+        // Log all results of the SELECT statement
+        console.log("Done");
+
+    });
+
+
+}
