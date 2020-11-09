@@ -185,3 +185,31 @@ async function updateEmployees() {
 
 
 }
+
+// Role 
+
+
+async function Rolesmenu() {
+
+    await inquirer.prompt({
+        type: "list",
+        name: "action",
+        message: "Select :",
+        choices: ["Roleadd", "Roleview "]
+    }).then(response => {
+        switch (response.action) {
+            case "Roleadd":
+                addRole()
+                break;
+            // case "Employee remove ":
+            //     removemp()
+            //     break;
+            case "Roleview ":
+                ViewallRole();
+                break;
+           
+        }
+    })
+
+
+}
