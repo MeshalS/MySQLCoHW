@@ -24,3 +24,27 @@ connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
 });
+
+
+async function main() {
+    await inquirer.prompt({
+        type: "list",
+        name: "action",
+        message: "Select :",
+        choices: ["Employee Menu", "Roles Menu", "Departments Menu"]
+    }).then(response => {
+        switch (response.action) {
+            case "Employee Menu":
+                employeeMenu()
+                break;
+            case "Roles Menu":
+                Rolesmenu();
+                break;
+            case "Departments Menu":
+                departmentMenu();
+                break;
+        }
+    })
+
+
+}
