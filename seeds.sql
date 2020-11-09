@@ -35,6 +35,8 @@ FOREIGN KEY (role_id) REFERENCES roles(id)
 
 INSERT INTO departments (name) values ('testing');
 INSERT INTO departments (name) values ('development');
+INSERT INTO departments (name) values ('MKT');
+INSERT INTO departments (name) values ('Rules');
 
 INSERT INTO roles (title, salary,department_id) values ('tester', 10000,1);
 INSERT INTO roles (title, salary,department_id) values ('developer', 20000,2);
