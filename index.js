@@ -267,3 +267,73 @@ function ViewallRole() {
 
         })
 }
+
+
+// dept
+
+async function departmentMenu() {
+
+    await inquirer.prompt({
+        type: "list",
+        name: "action",
+        message: "Select :",
+        choices: ["depadd", "deptview "]
+    }).then(response => {
+        switch (response.action) {
+            case "addDepart":
+                addDepart()
+                break;
+            // case "Employee remove ":
+            //     removemp()
+            //     break;
+            case "deptview ":
+                 viewDept() 
+                break;
+           
+        }
+    })
+
+
+}
+
+
+function addDepart() {
+
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "title",
+            message: "enter the new name of the new dpeartment:-"
+
+        }
+
+    ])
+
+        .then(answers => {
+
+
+            let query = "INSERT INTO roles(department_name) VALUES(?,?,?)"
+
+            connection.query(query, [answers.department_name], function (err) {
+                if (err) throw err;
+
+                // Log all results of the SELECT statement
+                console.log("Done");
+                connection.end();
+            });
+
+        })
+
+
+}
+
+function viewDept() {
+    connection.query(
+        `SELECT * from departments`,
+        function (err, res) {
+            if (err) throw err;
+            console.log("role:");
+            console.table(res);
+
+        })
+}
