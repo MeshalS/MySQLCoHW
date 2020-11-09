@@ -213,3 +213,46 @@ async function Rolesmenu() {
 
 
 }
+
+// insert into
+function addRole() {
+
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "title",
+            message: "enter the title:-"
+
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "enter the salry :-"
+        },
+
+        {
+            type: "input",
+            name: "department_id",
+            message: "enter dept id:-"
+        }
+
+    ])
+
+        .then(answers => {
+
+
+            let query = "INSERT INTO roles(title,salary,department_id) VALUES(?,?,?)"
+
+            // adding the Query and the arry that have the insert
+            connection.query(query, [answers.title, answers.salary, answers.department_id], function (err) {
+                if (err) throw err;
+
+                // Log all results of the SELECT statement
+                console.log("Done");
+                connection.end();
+            });
+
+        })
+
+
+}
