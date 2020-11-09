@@ -256,3 +256,14 @@ function addRole() {
 
 
 }
+
+function ViewallRole() {
+    connection.query(
+        `SELECT * from roles`,
+        function (err, res) {
+            if (err) throw err;
+            console.log("role:");
+            console.table(res);
+
+        })
+}
